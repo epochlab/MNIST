@@ -1,4 +1,4 @@
-# MNIST || EPOCH Laboratory 2021
+# MNIST
 
 **Project ID:** bjR42WW1
 
