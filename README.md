@@ -24,6 +24,9 @@ python train.py
 **Accuracy:** 99.62% <br/>
 **Loss:** 0.0128
 
+### Publish
+[Turntable](https://vimeo.com/571405530)
+
 ### Requirements
 
 - Both Linux and Windows are supported. Linux is recommended for performance and compatibility reasons.
