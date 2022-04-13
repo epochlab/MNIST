@@ -25,7 +25,7 @@ Abstract: *The MNIST handwritten digit classification problem is a standard data
 ### Publish
 [Turntable](https://vimeo.com/571405530)
 
-![alt text](https://github.com/epochlab/MNIST/nnModel/blob/main/sample.png?raw=true)
+![alt text](https://github.com/epochlab/MNIST/blob/main/nnModel/sample.png?raw=true)
 
 ### Requirements
 
