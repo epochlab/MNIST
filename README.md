@@ -24,12 +24,18 @@ python train.py
 **Accuracy:** 99.62% <br/>
 **Loss:** 0.0128
 
+### Publish
+[Turntable](https://vimeo.com/571405530)
+
 ### Requirements
 
 - Both Linux and Windows are supported. Linux is recommended for performance and compatibility reasons.
 - 64-bit Python 3.7.9 installation.
+- - SideFX Houdini 18.5
 
 ### Acknowledgements
 
 The dataset is made available under a Creative Commons Attribution-Share Alike 3.0 license.
 http://yann.lecun.com/exdb/mnist/index.html
+
+[Receptive fields, binocular interaction and functional architecture in the cat's visual cortex.](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1359523/pdf/jphysiol01247-0121.pdf)
