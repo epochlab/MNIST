@@ -35,7 +35,6 @@ Abstract: *The MNIST handwritten digit classification problem is a standard data
 
 ### Acknowledgements
 
-[The dataset is made available under a Creative Commons Attribution-Share Alike 3.0 license.]
-(http://yann.lecun.com/exdb/mnist/index.html)
+[The dataset is made available under a Creative Commons Attribution-Share Alike 3.0 license.](http://yann.lecun.com/exdb/mnist/index.html)
 
 [Receptive fields, binocular interaction and functional architecture in the cat's visual cortex.](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1359523/pdf/jphysiol01247-0121.pdf)
