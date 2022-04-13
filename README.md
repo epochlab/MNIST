@@ -25,6 +25,8 @@ Abstract: *The MNIST handwritten digit classification problem is a standard data
 ### Publish
 [Turntable](https://vimeo.com/571405530)
 
+![alt text](https://github.com/epochlab/MNIST/nnModel/blob/main/sample.png?raw=true)
+
 ### Requirements
 
 - Both Linux and Windows are supported. Linux is recommended for performance and compatibility reasons.
