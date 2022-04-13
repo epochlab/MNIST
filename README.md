@@ -15,17 +15,17 @@ Abstract: *The MNIST handwritten digit classification problem is a standard data
 
 `numpy` `matplotlib` `tensorflow2.x`
 
+### Publish
+[Turntable](https://vimeo.com/571405530)
+
+![alt text](https://github.com/epochlab/MNIST/blob/main/nnModel/sample.png?raw=true)
+
 ### Evaluation metrics
 
 ![alt text](https://github.com/epochlab/MNIST/blob/main/metrics/training_results.png?raw=true)
 
 **Accuracy:** 99.62% <br/>
 **Loss:** 0.0128
-
-### Publish
-[Turntable](https://vimeo.com/571405530)
-
-![alt text](https://github.com/epochlab/MNIST/blob/main/nnModel/sample.png?raw=true)
 
 ### Requirements
 
