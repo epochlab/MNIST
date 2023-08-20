@@ -12,8 +12,6 @@
 Abstract: *The MNIST handwritten digit classification problem is a standard dataset used in computer vision and deep learning. Although state-of-the-art models have effectively solved the problem, the dataset itself remains useful to the research community, providing a simple sanity check for new methods: if it doesn't work on MNIST, it doesn't work anywhere.*
 
 ### Publish
-[Turntable](https://vimeo.com/571405530)
-
 <p align="center">
    <a href="https://vimeo.com/571405530"><img src="https://github.com/epochlab/MNIST/blob/main/nnModel/sample.png">
 </p>
