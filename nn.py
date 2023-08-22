@@ -42,3 +42,68 @@ class ConvNet(torch.nn.Module):
         x = self.fc1(x)
         x = self.fc2(x)
         return F.log_softmax(x, dim=1)
+    
+class Generator(torch.nn.Module):
+    def __init__(self, n_chan=1, z_dim=100, n_gf=64):
+        super(Generator, self).__init__()
+        self.x_in = nn.Sequential(
+            nn.ConvTranspose2d(z_dim, n_gf * 8, 4, 1, 0, bias=False), # Input: z_dim > Conv
+            nn.BatchNorm2d(n_gf * 8),
+            nn.ReLU(True)
+        )
+        self.l1 = nn.Sequential(
+            nn.ConvTranspose2d(n_gf * 8, n_gf * 4, 4, 2, 1, bias=False), # (n_gf*8) x 4 x 4
+            nn.BatchNorm2d(n_gf * 4),
+            nn.ReLU(True)
+        )
+        self.l2 = nn.Sequential(
+            nn.ConvTranspose2d(n_gf * 4, n_gf * 2, 4, 2, 1, bias=False), # (n_gf*4) x 8 x 8
+            nn.BatchNorm2d(n_gf * 2),
+            nn.ReLU(True)
+        )
+        self.l3 = nn.Sequential(
+            nn.ConvTranspose2d(n_gf * 2, n_gf, 4, 2, 1, bias=False), # (n_gf*2) x 16 x 16
+            nn.BatchNorm2d(n_gf),
+            nn.ReLU(True)
+        )
+        self.x_out = nn.Sequential(
+            nn.ConvTranspose2d(n_gf, n_chan, 1, 1, 2, bias=False),
+            nn.Tanh()
+        )
+
+    def forward(self, x):
+        x = self.x_in(x)
+        x = self.l1(x)
+        x = self.l2(x)
+        x = self.l3(x)
+        x = self.x_out(x)
+        return x
+    
+class Discriminator(torch.nn.Module):
+    def __init__(self, n_chan=1, n_df=64):
+        super(Discriminator, self).__init__()
+        self.x_in = nn.Sequential(
+            nn.Conv2d(n_chan, n_df, 4, 2, 1, bias=False),
+            nn.LeakyReLU(0.2, inplace=True),
+        )
+        self.l1 = nn.Sequential(
+            nn.Conv2d(n_df, n_df * 2, 4, 2, 1, bias=False),
+            nn.BatchNorm2d(n_df * 2),
+            nn.LeakyReLU(0.2, inplace=True),
+        )
+        self.l2 = nn.Sequential(
+            nn.Conv2d(n_df * 2, n_df * 4, 4, 2, 1, bias=False),
+            nn.BatchNorm2d(n_df * 4),
+            nn.LeakyReLU(0.2, inplace=True),
+        )
+        self.x_out = nn.Sequential(
+            nn.Conv2d(n_df * 4, 1, 4, 2, 1, bias=False),
+            nn.Sigmoid()
+        )
+
+    def forward(self, x):
+        x = self.x_in(x)
+        x = self.l1(x)
+        x = self.l2(x)
+        x = self.x_out(x)
+        return x.view(-1, 1).squeeze(1)
