@@ -12,7 +12,8 @@ class LinearNN(torch.nn.Module):
         self.sm = nn.LogSoftmax(dim=1)
     
     def forward(self, x):
-        x = F.elu(self.fc1(x))
+        x = self.fc1(x)
+        x = F.elu(x)
         x = self.fc2(x)
         x = self.sm(x)
         return x
