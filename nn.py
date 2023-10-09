@@ -108,3 +108,78 @@ class Discriminator(torch.nn.Module):
         x = self.l2(x)
         x = self.x_out(x)
         return x.view(-1, 1).squeeze(1)
+    
+class Encoder(nn.Module):
+    def __init__(self, input_dim=784, hidden_dim=512, latent_dim=256):
+        super(Encoder, self).__init__()
+
+        self.linear1 = nn.Linear(input_dim, hidden_dim)
+        self.linear2 = nn.Linear(hidden_dim, hidden_dim)
+        self.mean = nn.Linear(hidden_dim, latent_dim)
+        self.var = nn.Linear (hidden_dim, latent_dim)
+        self.LeakyReLU = nn.LeakyReLU(0.2)
+        self.training = True
+        
+    def forward(self, x):
+        x = self.LeakyReLU(self.linear1(x))
+        x = self.LeakyReLU(self.linear2(x))
+        mean = self.mean(x)
+        logvar = self.var(x)                     
+        return mean, logvar
+    
+class Decoder(nn.Module):
+    def __init__(self, output_dim=784, hidden_dim=512, latent_dim=256):
+        super(Decoder, self).__init__()
+
+        self.linear2 = nn.Linear(latent_dim, hidden_dim)
+        self.linear1 = nn.Linear(hidden_dim, hidden_dim)
+        self.output = nn.Linear(hidden_dim, output_dim)
+        self.LeakyReLU = nn.LeakyReLU(0.2)
+        
+    def forward(self, x):
+        x = self.LeakyReLU(self.linear2(x))
+        x = self.LeakyReLU(self.linear1(x))
+        x_hat = torch.sigmoid(self.output(x))
+        return x_hat
+
+class VAE(nn.Module):
+    def __init__(self, input_dim=784, hidden_dim=512, latent_dim=256):
+        super(VAE, self).__init__()
+
+        self.encoder = nn.Sequential(
+            nn.Linear(input_dim, hidden_dim),
+            nn.LeakyReLU(0.2),
+            nn.Linear(hidden_dim, latent_dim),
+            nn.LeakyReLU(0.2)
+            )
+        
+        self.mean_layer = nn.Linear(latent_dim, 2)
+        self.logvar_layer = nn.Linear(latent_dim, 2)
+        
+        self.decoder = nn.Sequential(
+            nn.Linear(2, latent_dim),
+            nn.LeakyReLU(0.2),
+            nn.Linear(latent_dim, hidden_dim),
+            nn.LeakyReLU(0.2),
+            nn.Linear(hidden_dim, input_dim),
+            nn.Sigmoid()
+            )
+     
+    def encode(self, x):
+        x = self.encoder(x)
+        mean, logvar = self.mean_layer(x), self.logvar_layer(x)
+        return mean, logvar
+
+    def decode(self, x):
+        return self.decoder(x)
+
+    def reparameterization(self, mean, var):
+        epsilon = torch.randn_like(var)    
+        z = mean + var*epsilon
+        return z
+
+    def forward(self, x):
+        mean, logvar = self.encode(x)
+        z = self.reparameterization(mean, logvar)
+        x_hat = self.decode(z)
+        return x_hat, mean, logvar
